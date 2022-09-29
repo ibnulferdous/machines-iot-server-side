@@ -90,7 +90,6 @@ async function run() {
     app.get("/app-accounts", async (req, res) => {
       const cursor = appAccountCollections.find({});
       const appAccounts = await cursor.toArray();
-      console.log(appAccounts);
       res.send(appAccounts);
     });
 
