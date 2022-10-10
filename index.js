@@ -82,6 +82,30 @@ async function run() {
       res.json(result);
     });
 
+    // PUT- update user's app account request status
+    app.put("/users/update-cloud-account-status/:id", async (req, res) => {
+      const id = req.params.id;
+      const magicLink = req.body.magicLink;
+      const requestStatus = req.body.requestStatus;
+      const filter = { googleUid: id };
+      const options = { upsert: false };
+
+      const updateMagicLink = {
+        $set: {
+          magicLink,
+          requestStatus,
+        },
+      };
+
+      const result = await userCollections.updateOne(
+        filter,
+        updateMagicLink,
+        options
+      );
+
+      res.json(result);
+    });
+
     // ----------------------------------------------------
     // App account request
     // ----------------------------------------------------
